@@ -1,0 +1,7 @@
+
+project(':raspberry')
+project(':app') {
+	dependencies {
+		project(':raspberry')
+	}
+}
