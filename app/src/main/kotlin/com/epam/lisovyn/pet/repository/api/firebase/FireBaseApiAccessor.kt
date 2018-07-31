@@ -19,11 +19,11 @@ abstract class FireBaseApiAccessor(val firebaseDatabase: FirebaseDatabase) : Fir
 
     internal fun <T> preHit(vararg references: Class<T>) {
         logger.debug("starting pre hit")
-        references.forEach { get(it) }
+        references.forEach { getAll(it) }
     }
 
 
-    internal fun <T> get(referenceClass: Class<T>) = runBlocking<List<T>> {
+    internal fun <T> getAll(referenceClass: Class<T>) = runBlocking<List<T>> {
         lateinit var dataSnapshot: DataSnapshot
 
         firebaseDatabase.getReference(referenceClass.getReference())
@@ -44,6 +44,32 @@ abstract class FireBaseApiAccessor(val firebaseDatabase: FirebaseDatabase) : Fir
         synchronized(monitor) {
             monitor.wait()
             dataSnapshot.children.map { it.getValue(referenceClass) }
+        }
+    }
+
+    internal fun <T> get(referenceClass: Class<T>, id: String) = runBlocking<T?> {
+        lateinit var dataSnapshot: DataSnapshot
+
+        firebaseDatabase.getReference(referenceClass.getReference())
+                .orderByChild("id")
+                .equalTo(id)
+                .addValueEventListener(object : ValueEventListener {
+
+                    override fun onCancelled(error: DatabaseError) {
+                        throw error.toException()
+                    }
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        synchronized(monitor) {
+                            dataSnapshot = snapshot
+                            monitor.notifyAll()
+                        }
+                    }
+                })
+
+        synchronized(monitor) {
+            monitor.wait()
+            dataSnapshot.children.firstOrNull()?.getValue(referenceClass)
         }
     }
 }

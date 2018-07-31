@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class FlowerRepositoryImpl(val fireBaseApi: FireBaseApi) : FlowerRepository {
 
-    override fun getFlowers(): List<Flower> {
-        return fireBaseApi.getAllFlowers()
-    }
+    override fun getFlowers(): List<Flower> = fireBaseApi.getAllFlowers()
+
+    override fun getFlower(id: String): Flower? = fireBaseApi.getFlower(id)
 }

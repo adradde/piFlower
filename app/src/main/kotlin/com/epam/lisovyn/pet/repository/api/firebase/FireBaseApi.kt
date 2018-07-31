@@ -5,4 +5,6 @@ import com.epam.lisovyn.pet.common.model.Flower
 interface FireBaseApi {
 
     fun getAllFlowers(): List<Flower>
+
+    fun getFlower(id: String): Flower?
 }

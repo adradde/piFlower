@@ -5,4 +5,5 @@ import com.epam.lisovyn.pet.common.model.Flower
 interface FlowerRepository {
 
     fun getFlowers(): List<Flower>
+    fun getFlower(id: String): Flower?
 }
