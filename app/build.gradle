@@ -16,7 +16,6 @@ apply plugin: 'io.spring.dependency-management'
 
 
 bootJar {
-	mainClassName = 'com.epam.lisovyn.pet.app.Main'
 	baseName = 'gs-spring-boot'
 	version = '0.1.0'
 }
@@ -28,7 +27,12 @@ repositories {
 dependencies {
 	compile project(':raspberry')
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+	compile "org.jetbrains.kotlin:kotlin-reflect:1.2.51"
 	compile "org.springframework.boot:spring-boot-starter-web"
+	compile group: 'com.netflix.feign', name: 'feign-httpclient', version: '8.18.0'
+	compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0'
+
+	implementation 'com.google.firebase:firebase-admin:6.3.0'
 }
 
 compileKotlin {
@@ -40,3 +44,8 @@ compileTestKotlin {
 
 group 'raspberry-pet'
 version '1.0-SNAPSHOT'
+
+task run(dependsOn: ':app:bootRun') {
+	group = 'Application'
+	description = 'Runs the app (alias for bootRun)'
+}

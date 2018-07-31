@@ -1,11 +1,10 @@
 package com.epam.lisovyn.hard
 
 import com.pi4j.io.gpio.GpioFactory
-import com.pi4j.io.gpio.GpioProvider
 import com.pi4j.io.gpio.PinState
 import com.pi4j.io.gpio.RaspiPin
 
-class RaspManager {
+class RaspProducer {
     fun a() {
         val gpio = GpioFactory.getInstance()
 
