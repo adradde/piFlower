@@ -6,4 +6,5 @@ interface FlowerRepository {
 
     fun getFlowers(): List<Flower>
     fun getFlower(id: String): Flower?
+    fun updateFlower(id: String): Flower?
 }

@@ -1,5 +1,6 @@
 package com.epam.lisovyn.pet.repository.api.firebase
 
+import com.epam.lisovyn.pet.common.model.IdentifiedItem
 import com.epam.lisovyn.pet.repository.api.annotation.Reference
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,13 +18,13 @@ abstract class FireBaseApiAccessor(val firebaseDatabase: FirebaseDatabase) : Fir
 
     val monitor = java.lang.Object()
 
-    internal fun <T> preHit(vararg references: Class<T>) {
+    internal fun <T: IdentifiedItem> preHit(vararg references: Class<T>) {
         logger.debug("starting pre hit")
         references.forEach { getAll(it) }
     }
 
 
-    internal fun <T> getAll(referenceClass: Class<T>) = runBlocking<List<T>> {
+    internal fun <T: IdentifiedItem> getAll(referenceClass: Class<T>) = runBlocking<List<T>> {
         lateinit var dataSnapshot: DataSnapshot
 
         firebaseDatabase.getReference(referenceClass.getReference())
@@ -43,18 +44,15 @@ abstract class FireBaseApiAccessor(val firebaseDatabase: FirebaseDatabase) : Fir
 
         synchronized(monitor) {
             monitor.wait()
-            dataSnapshot.children.map { it.getValue(referenceClass) }
+            dataSnapshot.children.map { it.getValue(referenceClass).apply { id = it.key } }
         }
     }
 
-    internal fun <T> get(referenceClass: Class<T>, id: String) = runBlocking<T?> {
+    internal fun <T : IdentifiedItem> get(referenceClass: Class<T>, id: String) = runBlocking {
         lateinit var dataSnapshot: DataSnapshot
 
-        firebaseDatabase.getReference(referenceClass.getReference())
-                .orderByChild("id")
-                .equalTo(id)
+        firebaseDatabase.getReference("${referenceClass.getReference()}/$id")
                 .addValueEventListener(object : ValueEventListener {
-
                     override fun onCancelled(error: DatabaseError) {
                         throw error.toException()
                     }
@@ -69,8 +67,16 @@ abstract class FireBaseApiAccessor(val firebaseDatabase: FirebaseDatabase) : Fir
 
         synchronized(monitor) {
             monitor.wait()
-            dataSnapshot.children.firstOrNull()?.getValue(referenceClass)
+            dataSnapshot.getValue(referenceClass)
+                    ?.apply {
+                        this.id = id
+                    }
         }
+    }
+
+    override fun update(item: IdentifiedItem) {
+        firebaseDatabase.getReference("${item::class.java.getReference()}/${item.id}")
+                .updateChildrenAsync(mapOf("lastUpdate" to System.currentTimeMillis()))
     }
 }
 
