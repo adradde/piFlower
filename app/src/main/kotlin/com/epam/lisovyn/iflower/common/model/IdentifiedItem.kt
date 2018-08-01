@@ -1,3 +1,3 @@
-package com.epam.lisovyn.pet.common.model
+package com.epam.lisovyn.iflower.common.model
 
 abstract class IdentifiedItem(open var id: String = "")

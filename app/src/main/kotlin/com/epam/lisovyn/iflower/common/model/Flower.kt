@@ -1,6 +1,6 @@
-package com.epam.lisovyn.pet.common.model
+package com.epam.lisovyn.iflower.common.model
 
-import com.epam.lisovyn.pet.repository.api.annotation.Reference
+import com.epam.lisovyn.iflower.repository.api.annotation.Reference
 
 @Reference("/flowers")
 data class Flower(override var id: String = "",

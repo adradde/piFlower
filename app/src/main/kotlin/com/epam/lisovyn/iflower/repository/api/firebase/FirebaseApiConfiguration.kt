@@ -1,4 +1,4 @@
-package com.epam.lisovyn.pet.repository.api.firebase
+package com.epam.lisovyn.iflower.repository.api.firebase
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.common.io.Resources

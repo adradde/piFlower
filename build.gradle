@@ -5,3 +5,8 @@ project(':app') {
 		project(':raspberry')
 	}
 }
+
+task runAll{
+	dependsOn ':app:bootRun'
+	dependsOn ':app:startReact'
+}

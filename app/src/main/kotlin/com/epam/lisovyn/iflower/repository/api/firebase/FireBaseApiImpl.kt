@@ -1,6 +1,6 @@
-package com.epam.lisovyn.pet.repository.api.firebase
+package com.epam.lisovyn.iflower.repository.api.firebase
 
-import com.epam.lisovyn.pet.common.model.Flower
+import com.epam.lisovyn.iflower.common.model.Flower
 import com.google.firebase.database.FirebaseDatabase
 import org.springframework.stereotype.Component
 

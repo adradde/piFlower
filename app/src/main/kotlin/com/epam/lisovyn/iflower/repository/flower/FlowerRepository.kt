@@ -1,6 +1,6 @@
-package com.epam.lisovyn.pet.repository.flower
+package com.epam.lisovyn.iflower.repository.flower
 
-import com.epam.lisovyn.pet.common.model.Flower
+import com.epam.lisovyn.iflower.common.model.Flower
 
 interface FlowerRepository {
 

@@ -1,7 +1,7 @@
-package com.epam.lisovyn.pet.repository.api.firebase
+package com.epam.lisovyn.iflower.repository.api.firebase
 
-import com.epam.lisovyn.pet.common.model.IdentifiedItem
-import com.epam.lisovyn.pet.repository.api.annotation.Reference
+import com.epam.lisovyn.iflower.common.model.IdentifiedItem
+import com.epam.lisovyn.iflower.repository.api.annotation.Reference
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
