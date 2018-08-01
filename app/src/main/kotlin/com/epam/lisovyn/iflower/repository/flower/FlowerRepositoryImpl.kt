@@ -1,6 +1,6 @@
 package com.epam.lisovyn.iflower.repository.flower
 
-import com.epam.lisovyn.iflower.app.socket.WebSocketConfiguration
+import com.epam.lisovyn.iflower.web.socket.WebSocketConfiguration
 import com.epam.lisovyn.iflower.common.model.Flower
 import com.epam.lisovyn.iflower.repository.api.firebase.FireBaseApi
 import org.slf4j.LoggerFactory

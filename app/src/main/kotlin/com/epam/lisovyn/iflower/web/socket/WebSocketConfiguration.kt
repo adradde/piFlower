@@ -1,4 +1,4 @@
-package com.epam.lisovyn.iflower.app.socket
+package com.epam.lisovyn.iflower.web.socket
 
 import org.springframework.messaging.simp.config.MessageBrokerRegistry
 import org.springframework.stereotype.Component
