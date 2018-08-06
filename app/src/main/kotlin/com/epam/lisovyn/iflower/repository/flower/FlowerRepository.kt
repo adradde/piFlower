@@ -1,6 +1,6 @@
 package com.epam.lisovyn.iflower.repository.flower
 
-import com.epam.lisovyn.iflower.common.model.Flower
+import com.epam.lisovyn.iflower.model.domen.Flower
 
 interface FlowerRepository {
 

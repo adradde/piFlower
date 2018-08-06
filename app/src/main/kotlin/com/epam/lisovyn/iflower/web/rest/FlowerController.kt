@@ -1,4 +1,4 @@
-package com.epam.lisovyn.iflower.web.controller
+package com.epam.lisovyn.iflower.web.rest
 
 import com.epam.lisovyn.iflower.repository.flower.FlowerRepository
 import org.springframework.web.bind.annotation.*
